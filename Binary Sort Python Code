@@ -1,0 +1,34 @@
+# Description: Sorts array of numbers by the 1s frequency in the number's binary form
+# Author : Alexy Skoutnev
+# Date : 1/3/2020
+
+def binary_sort_by_1(elements):
+    updated_elements = []
+    for x in elements:
+        if x not in updated_elements:
+            updated_elements.append(x)
+    elements = updated_elements[:]
+    freq_count = []
+    for x in elements:
+        freq_count.append(bin(x).replace("0b", "").count("1"))
+    for i in range(len(elements)):
+        for j in range(0, len(elements) - i - 1):
+            if freq_count[i] > freq_count[i+1]:
+                freq_count[i], freq_count[i+1] = freq_count[i+1], freq_count[i]
+                elements[i], elements[i+1] = elements[i+1], elements[i]
+            elif freq_count[i] == freq_count[i+1]:
+                if elements[i] > elements[i+1]:
+                    elements[i], elements[i+1] = elements[i+1], elements[i]
+    return elements
+
+def main():
+    length = eval(input("Enter the length of array "))
+    x = 0
+    elements = []
+    while (x < length):
+        num = eval(input("Enter the numbers you want in the array "))
+        elements.append(num)
+        x += 1
+    result = binary_sort_by_1(elements)
+    print("Sorted array by number of ones in binary form:", result)
+main()
